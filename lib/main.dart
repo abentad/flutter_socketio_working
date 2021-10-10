@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Chat app',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
       home: const LoginScreen(),
     );

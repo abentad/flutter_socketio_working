@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ListView.builder(
                   itemCount: messages.length,
                   itemBuilder: (context, index) => ListTile(
-                    title: const Text('sender name'),
+                    title: Text(socket.id.toString()),
                     subtitle: Text(messages[index]),
                   ),
                 ),
@@ -90,11 +90,12 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: size.height * 0.02),
               MaterialButton(
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   socket.emit('send-message', _messageController.text);
                 },
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                 child: const Text(
-                  'Login',
+                  'Send',
                   style: TextStyle(color: Colors.white),
                 ),
                 minWidth: double.infinity,
