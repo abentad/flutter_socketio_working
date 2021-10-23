@@ -46,9 +46,9 @@ class ConversationWidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(userName, style: const TextStyle(fontSize: 18.0)),
+                            Text(userName, style: const TextStyle(fontSize: 12.0), overflow: TextOverflow.ellipsis),
                             SizedBox(height: size.height * 0.01),
-                            Text(message, style: const TextStyle(fontSize: 16.0, color: Colors.grey)),
+                            Text(message, style: const TextStyle(fontSize: 14.0, color: Colors.grey)),
                           ],
                         ),
                       ],

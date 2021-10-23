@@ -22,6 +22,7 @@ class MessageScreen extends StatelessWidget {
                 "Socket.io Chat app",
                 style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
               ),
+              SizedBox(height: size.height * 0.02),
               Expanded(
                 child: ListView.builder(
                   itemCount: controller.messages.length,
@@ -57,7 +58,7 @@ class MessageScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.0),
                     onTap: () {
                       FocusScope.of(context).unfocus();
-                      controller.sendMessage(_messageController.text);
+                      if (_messageController.text != "") controller.sendMessage(_messageController.text);
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 11.0),
