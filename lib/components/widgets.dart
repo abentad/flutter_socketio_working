@@ -77,3 +77,50 @@ class ConversationWidget extends StatelessWidget {
     );
   }
 }
+
+class CustomTextFormField extends StatelessWidget {
+  const CustomTextFormField({Key? key, required this.hintText, required this.controller}) : super(key: key);
+
+  final String hintText;
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      cursorColor: Colors.black,
+      style: const TextStyle(fontSize: 22.0),
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        filled: true,
+        fillColor: const Color(0xfff2f2f2),
+        hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.grey, fontSize: 16.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: const BorderSide(color: Color(0xfff2f2f2))),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: const BorderSide(color: Color(0xfff2f2f2))),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0), borderSide: const BorderSide(color: Color(0xfff2f2f2))),
+      ),
+    );
+  }
+}
+
+class CustomMaterialButton extends StatelessWidget {
+  const CustomMaterialButton({Key? key, required this.btnLabel, required this.onPressed}) : super(key: key);
+
+  final String btnLabel;
+  final Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: MaterialButton(
+        onPressed: onPressed,
+        height: 50.0,
+        minWidth: double.infinity,
+        color: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        child: Text(btnLabel, style: const TextStyle(color: Colors.white, fontSize: 16.0)),
+      ),
+    );
+  }
+}

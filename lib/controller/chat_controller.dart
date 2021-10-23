@@ -1,3 +1,4 @@
+import 'package:chatapp_socketio/constants.dart';
 import 'package:chatapp_socketio/model/conversation.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,6 @@ class ChatController extends GetxController {
 
   ChatController() {
     connectToServer();
-    getConversations("6162f25f3c27c7550ab83a6d");
   }
 
   //connection working
@@ -21,7 +21,7 @@ class ChatController extends GetxController {
   //
   void connectToServer() {
     try {
-      _socket = io('http://192.168.8.137:3000', <String, dynamic>{
+      _socket = io(kbaseUrl, <String, dynamic>{
         'transports': ['websocket'],
         'autoConnect': false,
       });
@@ -40,7 +40,7 @@ class ChatController extends GetxController {
   void getConversations(String userId) async {
     Dio _dio = Dio(
       BaseOptions(
-        baseUrl: "http://192.168.8.137:3000",
+        baseUrl: kbaseUrl,
         connectTimeout: 10000,
         receiveTimeout: 100000,
         responseType: ResponseType.json,

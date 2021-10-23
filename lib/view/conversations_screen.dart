@@ -1,5 +1,6 @@
 import 'package:chatapp_socketio/components/widgets.dart';
 import 'package:chatapp_socketio/controller/chat_controller.dart';
+import 'package:chatapp_socketio/controller/user_controller.dart';
 import 'package:chatapp_socketio/view/message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,15 @@ class ConversatoinsScreen extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text('Messages', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: GetBuilder<UserController>(
+                    builder: (controller) => Text(
+                      controller.currentUser!.name.capitalize.toString(),
+                      style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+                    ),
+                  ),
                 ),
                 SizedBox(height: size.height * 0.04),
                 Expanded(

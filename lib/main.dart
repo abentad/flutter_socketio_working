@@ -1,5 +1,7 @@
 import 'package:chatapp_socketio/controller/chat_controller.dart';
+import 'package:chatapp_socketio/controller/user_controller.dart';
 import 'package:chatapp_socketio/view/conversations_screen.dart';
+import 'package:chatapp_socketio/view/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,7 @@ void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
   Get.put(ChatController());
+  Get.put(UserController());
   runApp(const MyApp());
 }
 
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.teal,
       ),
-      home: const ConversatoinsScreen(),
+      home: SignUp(),
     );
   }
 }
