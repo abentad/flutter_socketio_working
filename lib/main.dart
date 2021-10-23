@@ -1,6 +1,5 @@
 import 'package:chatapp_socketio/controller/chat_controller.dart';
 import 'package:chatapp_socketio/controller/user_controller.dart';
-import 'package:chatapp_socketio/view/conversations_screen.dart';
 import 'package:chatapp_socketio/view/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

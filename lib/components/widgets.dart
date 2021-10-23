@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/string_extensions.dart';
 
 class ConversationWidget extends StatelessWidget {
   const ConversationWidget({
@@ -8,6 +9,7 @@ class ConversationWidget extends StatelessWidget {
     required this.message,
     required this.time,
     this.newMessagesNumber = 0,
+    required this.ontap,
   }) : super(key: key);
 
   final Size size;
@@ -15,13 +17,12 @@ class ConversationWidget extends StatelessWidget {
   final String message;
   final String time;
   final int newMessagesNumber;
+  final Function() ontap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print('tapped on conversation');
-      },
+      onTap: ontap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -41,12 +42,13 @@ class ConversationWidget extends StatelessWidget {
                         CircleAvatar(
                           radius: 28.0,
                           backgroundColor: Colors.grey.shade200,
+                          child: Text(userName[0].capitalize.toString(), style: const TextStyle(color: Colors.teal, fontSize: 26.0, fontWeight: FontWeight.bold)),
                         ),
                         SizedBox(width: size.width * 0.04),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(userName, style: const TextStyle(fontSize: 12.0), overflow: TextOverflow.ellipsis),
+                            Text(userName.capitalize.toString(), style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600)),
                             SizedBox(height: size.height * 0.01),
                             Text(message, style: const TextStyle(fontSize: 14.0, color: Colors.grey)),
                           ],

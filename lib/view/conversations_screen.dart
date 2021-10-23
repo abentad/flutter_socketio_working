@@ -1,7 +1,7 @@
 import 'package:chatapp_socketio/components/widgets.dart';
 import 'package:chatapp_socketio/controller/chat_controller.dart';
 import 'package:chatapp_socketio/controller/user_controller.dart';
-import 'package:chatapp_socketio/view/message_screen.dart';
+import 'package:chatapp_socketio/view/user_select_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -16,7 +16,7 @@ class ConversatoinsScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => MessageScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const UserSelectScreen()));
         },
         child: const Icon(Icons.add, color: Colors.white),
         backgroundColor: Colors.black,
@@ -47,8 +47,9 @@ class ConversatoinsScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: controller.conversations().length,
                     itemBuilder: (context, index) => ConversationWidget(
+                      ontap: () {},
                       size: size,
-                      userName: controller.conversations()[index].members[0],
+                      userName: controller.conversations()[index].members[3],
                       message: "Thank you so much",
                       time: DateFormat('E kk:mm').format(controller.conversations()[index].updatedAt),
                       newMessagesNumber: 1,

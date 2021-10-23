@@ -27,6 +27,7 @@ class Login extends StatelessWidget {
             SizedBox(height: size.height * 0.02),
             CustomMaterialButton(
               onPressed: () async {
+                FocusScope.of(context).unfocus();
                 if (_usernameController.text != "") {
                   bool _result = await Get.find<UserController>().login(_usernameController.text);
                   if (_result) {
