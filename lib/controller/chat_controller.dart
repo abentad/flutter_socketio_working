@@ -1,5 +1,6 @@
 import 'package:chatapp_socketio/constants.dart';
 import 'package:chatapp_socketio/model/conversation.dart';
+import 'package:chatapp_socketio/model/message.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -9,6 +10,8 @@ class ChatController extends GetxController {
   List<String> get messages => _messages;
   final List<Conversation> _conversations = [];
   List<Conversation> conversations() => _conversations;
+  final List<Message> _oldMessages = [];
+  List<Message> oldMessages() => _oldMessages;
 
   ChatController() {
     connectToServer();
@@ -49,11 +52,37 @@ class ChatController extends GetxController {
     try {
       final response = await _dio.get('/api/conversation?userId=$userId');
       if (response.statusCode == 200) {
+        _conversations.clear();
         print('worked nice');
         for (final conv in response.data) {
           _conversations.add(Conversation.fromJson(conv));
         }
         print('${_conversations.length} conversations has been added to list');
+        update();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void getMessages(String convId) async {
+    Dio _dio = Dio(
+      BaseOptions(
+        baseUrl: kbaseUrl,
+        connectTimeout: 10000,
+        receiveTimeout: 100000,
+        responseType: ResponseType.json,
+      ),
+    );
+    try {
+      final response = await _dio.get('/api/message?conversationId=$convId');
+      if (response.statusCode == 200) {
+        _oldMessages.clear();
+        print('worked nice');
+        for (final message in response.data) {
+          _oldMessages.add(Message.fromJson(message));
+        }
+        print('${_oldMessages.length} messages has been added to list');
         update();
       }
     } catch (e) {

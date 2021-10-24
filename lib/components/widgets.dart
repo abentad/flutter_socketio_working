@@ -72,7 +72,7 @@ class ConversationWidget extends StatelessWidget {
               ),
             ),
             SizedBox(height: size.height * 0.01),
-            const Divider(),
+            Divider(color: Colors.black.withOpacity(0.3)),
           ],
         ),
       ),

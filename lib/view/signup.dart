@@ -32,7 +32,7 @@ class SignUp extends StatelessWidget {
                 if (_usernameController.text != "") {
                   bool _result = await Get.find<UserController>().signUp(_usernameController.text);
                   if (_result) {
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) => const ConversatoinsScreen()));
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) => ConversatoinsScreen()));
                   }
                 } else if (_usernameController.text == "") {
                   ScaffoldMessenger.of(context).showSnackBar(
