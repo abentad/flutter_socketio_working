@@ -1,0 +1,20 @@
+  void connectToServer() {
+    try {
+      _socket = io(kbaseUrl, <String, dynamic>{
+        'transports': ['websocket'],
+        'autoConnect': false,
+      });
+      _socket.connect();
+      _socket.on('connect', (_) => print('connect: ${_socket.id}'));
+      _socket.on(
+          'receive-message',
+          // (message) {
+          //   _messages.add(message);
+          //   print('message: $message');
+          //   update();
+          // },
+          onReceiveMessage);
+    } catch (e) {
+      print(e.toString());
+    }
+  }

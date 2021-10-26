@@ -17,6 +17,7 @@ class ChatController extends GetxController {
     connectToServer();
   }
 
+  //socket io stuff
   //connection working
   late Socket _socket;
   Socket get socket => _socket;
@@ -29,31 +30,35 @@ class ChatController extends GetxController {
         'autoConnect': false,
       });
       _socket.connect();
-      _socket.on('connect', (_) => print('connect: ${_socket.id}'));
-      _socket.on('receive-message', (message) {
-        _messages.add(message);
-        print('message: $message');
-        update();
-      });
+      _socket.on('connect', onConnect);
+      _socket.on('receive-message', onReceiveMessage);
     } catch (e) {
       print(e.toString());
     }
   }
 
+  void onConnect(_) {
+    print('connect: ${_socket.id}');
+  }
+
+  void onReceiveMessage(message) {
+    _messages.add(message);
+    print('message: $message');
+    update();
+  }
+
+  void sendMessage(String message) {
+    _socket.emit('send-message', message);
+  }
+
+  //mongodb stuff
+  //
   void getConversations(String userId) async {
-    Dio _dio = Dio(
-      BaseOptions(
-        baseUrl: kbaseUrl,
-        connectTimeout: 10000,
-        receiveTimeout: 100000,
-        responseType: ResponseType.json,
-      ),
-    );
+    Dio _dio = Dio(BaseOptions(baseUrl: kbaseUrl, connectTimeout: 10000, receiveTimeout: 100000, responseType: ResponseType.json));
     try {
       final response = await _dio.get('/api/conversation?userId=$userId');
       if (response.statusCode == 200) {
         _conversations.clear();
-        print('worked nice');
         for (final conv in response.data) {
           _conversations.add(Conversation.fromJson(conv));
         }
@@ -66,19 +71,11 @@ class ChatController extends GetxController {
   }
 
   void getMessages(String convId) async {
-    Dio _dio = Dio(
-      BaseOptions(
-        baseUrl: kbaseUrl,
-        connectTimeout: 10000,
-        receiveTimeout: 100000,
-        responseType: ResponseType.json,
-      ),
-    );
+    Dio _dio = Dio(BaseOptions(baseUrl: kbaseUrl, connectTimeout: 10000, receiveTimeout: 100000, responseType: ResponseType.json));
     try {
       final response = await _dio.get('/api/message?conversationId=$convId');
       if (response.statusCode == 200) {
         _oldMessages.clear();
-        print('worked nice');
         for (final message in response.data) {
           _oldMessages.add(Message.fromJson(message));
         }
@@ -88,9 +85,5 @@ class ChatController extends GetxController {
     } catch (e) {
       print(e);
     }
-  }
-
-  void sendMessage(String message) {
-    _socket.emit('send-message', message);
   }
 }
