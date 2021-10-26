@@ -46,41 +46,37 @@ class _MessageScreenState extends State<MessageScreen> {
                 SizedBox(height: size.height * 0.04),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: controller.oldMessages().length,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: controller.messages.length,
                     itemBuilder: (context, index) => Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                      margin: Get.find<UserController>().currentUser!.sId == controller.oldMessages()[index].senderId
+                      margin: Get.find<UserController>().currentUser!.sId == controller.messages[index].senderId
                           ? const EdgeInsets.only(right: 10.0, left: 160.0, bottom: 10.0)
                           : const EdgeInsets.only(right: 160.0, left: 10.0, bottom: 10.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: Get.find<UserController>().currentUser!.sId == controller.oldMessages()[index].senderId
+                        borderRadius: Get.find<UserController>().currentUser!.sId == controller.messages[index].senderId
                             ? const BorderRadius.only(topLeft: Radius.circular(10.0), bottomLeft: Radius.circular(10.0))
                             : const BorderRadius.only(topRight: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
                       ),
                       child: Column(
-                        crossAxisAlignment:
-                            Get.find<UserController>().currentUser!.sId == controller.oldMessages()[index].senderId ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                        crossAxisAlignment: Get.find<UserController>().currentUser!.sId == controller.messages[index].senderId ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                         children: [
-                          Text(controller.oldMessages()[index].text, style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black)),
+                          Text(controller.messages[index].text, style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black)),
                           SizedBox(height: size.height * 0.02),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(controller.oldMessages()[index].senderName.capitalize.toString(), style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
-                              Text(DateFormat('E kk:mm').format(controller.oldMessages()[index].timeSent), style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
+                              Text(controller.messages[index].senderName.capitalize.toString(), style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
+                              Text(DateFormat('E kk:mm').format(controller.messages[index].timeSent), style: const TextStyle(color: Colors.grey, fontSize: 14.0)),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    // itemCount: controller.messages.length,
-                    // itemBuilder: (context, index) => ListTile(
-                    //   title: Text(controller.messages[index]),
-                    // ),
                   ),
                 ),
-                SizedBox(height: size.height * 0.08),
+                // SizedBox(height: size.height * 0.08),
                 Row(
                   children: [
                     Expanded(
