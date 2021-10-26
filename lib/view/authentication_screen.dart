@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
+class AuthenticationScreen extends StatelessWidget {
+  AuthenticationScreen({Key? key}) : super(key: key);
   final TextEditingController _usernameController = TextEditingController();
 
   @override
@@ -29,6 +29,25 @@ class Login extends StatelessWidget {
               onPressed: () async {
                 FocusScope.of(context).unfocus();
                 if (_usernameController.text != "") {
+                  bool _result = await Get.find<UserController>().signUp(_usernameController.text);
+                  if (_result) {
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) => ConversatoinsScreen()));
+                  }
+                } else if (_usernameController.text == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Fill username', style: TextStyle(color: Colors.black)), backgroundColor: Colors.white),
+                  );
+                }
+              },
+              btnLabel: "Sign up",
+            ),
+            SizedBox(height: size.height * 0.02),
+            const Center(child: Text('or', style: TextStyle(fontSize: 16.0))),
+            SizedBox(height: size.height * 0.02),
+            CustomMaterialButton(
+              onPressed: () async {
+                FocusScope.of(context).unfocus();
+                if (_usernameController.text != "") {
                   bool _result = await Get.find<UserController>().login(_usernameController.text);
                   if (_result) {
                     Navigator.push(context, CupertinoPageRoute(builder: (context) => ConversatoinsScreen()));
@@ -40,15 +59,6 @@ class Login extends StatelessWidget {
                 }
               },
               btnLabel: "Login",
-            ),
-            SizedBox(height: size.height * 0.02),
-            const Center(child: Text('or', style: TextStyle(fontSize: 16.0))),
-            SizedBox(height: size.height * 0.02),
-            CustomMaterialButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              btnLabel: "Sign up",
             ),
           ],
         ),

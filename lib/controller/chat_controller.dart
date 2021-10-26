@@ -32,6 +32,7 @@ class ChatController extends GetxController {
       _socket.connect();
       _socket.on('connect', onConnect);
       _socket.on('receive-message', onReceiveMessage);
+      _socket.on('receive-message-from-room', (message) => print(message));
     } catch (e) {
       print(e.toString());
     }
@@ -49,6 +50,10 @@ class ChatController extends GetxController {
 
   void sendMessage(String message) {
     _socket.emit('send-message', message);
+  }
+
+  void sendMessageToRoom(String message, String roomName) {
+    _socket.emit('send-message-to-room', [message, roomName]);
   }
 
   //mongodb stuff
@@ -79,11 +84,21 @@ class ChatController extends GetxController {
         for (final message in response.data) {
           _oldMessages.add(Message.fromJson(message));
         }
+        joinRoom(convId);
         print('${_oldMessages.length} messages has been added to list');
         update();
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  void clearOldMessages() {
+    _oldMessages.clear();
+    update();
+  }
+
+  void joinRoom(String roomName) {
+    _socket.emit('join-room', roomName);
   }
 }

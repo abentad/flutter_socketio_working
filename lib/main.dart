@@ -1,6 +1,6 @@
 import 'package:chatapp_socketio/controller/chat_controller.dart';
 import 'package:chatapp_socketio/controller/user_controller.dart';
-import 'package:chatapp_socketio/view/signup.dart';
+import 'package:chatapp_socketio/view/authentication_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.teal,
       ),
-      home: SignUp(),
+      home: AuthenticationScreen(),
     );
   }
 }

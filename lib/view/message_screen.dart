@@ -5,9 +5,21 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class MessageScreen extends StatelessWidget {
-  MessageScreen({Key? key}) : super(key: key);
+class MessageScreen extends StatefulWidget {
+  const MessageScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MessageScreen> createState() => _MessageScreenState();
+}
+
+class _MessageScreenState extends State<MessageScreen> {
   final TextEditingController _messageController = TextEditingController();
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   Get.find<ChatController>().clearOldMessages();
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -74,19 +74,21 @@ class ConversatoinsScreen extends StatelessWidget {
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemCount: controller.conversations().length,
-                    itemBuilder: (context, index) => ConversationWidget(
-                      ontap: () {
-                        Get.find<ChatController>().getMessages(controller.conversations()[index].id);
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => MessageScreen()));
-                      },
-                      size: size,
-                      userName: Get.find<UserController>().currentUser!.sId.toString() == controller.conversations()[index].members[0].toString()
-                          ? controller.conversations()[index].names.receiverName
-                          : controller.conversations()[index].names.senderName,
-                      message: "",
-                      time: DateFormat('E kk:mm').format(controller.conversations()[index].updatedAt),
-                      newMessagesNumber: 1,
-                    ),
+                    itemBuilder: (context, index) {
+                      return ConversationWidget(
+                        ontap: () {
+                          Get.find<ChatController>().getMessages(controller.conversations()[index].id);
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => const MessageScreen()));
+                        },
+                        size: size,
+                        userName: Get.find<UserController>().currentUser!.sId.toString() == controller.conversations()[index].members[0].toString()
+                            ? controller.conversations()[index].names.receiverName
+                            : controller.conversations()[index].names.senderName,
+                        message: "",
+                        time: DateFormat('E kk:mm').format(controller.conversations()[index].updatedAt),
+                        newMessagesNumber: 1,
+                      );
+                    },
                   ),
                 ),
               ],
