@@ -86,7 +86,7 @@ class ConversatoinsScreen extends StatelessWidget {
                             : controller.conversations()[index].names.senderName,
                         message: "",
                         time: DateFormat('E kk:mm').format(controller.conversations()[index].updatedAt),
-                        newMessagesNumber: 1,
+                        newMessagesNumber: 0,
                       );
                     },
                   ),

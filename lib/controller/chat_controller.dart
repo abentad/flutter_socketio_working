@@ -1,4 +1,5 @@
 import 'package:chatapp_socketio/constants.dart';
+import 'package:chatapp_socketio/controller/notification_controller.dart';
 import 'package:chatapp_socketio/controller/user_controller.dart';
 import 'package:chatapp_socketio/model/conversation.dart';
 import 'package:chatapp_socketio/model/message.dart';
@@ -58,6 +59,10 @@ class ChatController extends GetxController {
         id: messageId.toString(),
         v: 0,
       ),
+    );
+    Get.find<NotificationController>().createBasicNotificaton(
+      title: 'sender name place holer',
+      body: message,
     );
     convId = convId + 1;
     senderId = senderId + 1;

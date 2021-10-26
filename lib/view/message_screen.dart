@@ -16,12 +16,6 @@ class MessageScreen extends StatefulWidget {
 class _MessageScreenState extends State<MessageScreen> {
   final TextEditingController _messageController = TextEditingController();
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   Get.find<ChatController>().clearOldMessages();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -108,6 +102,10 @@ class _MessageScreenState extends State<MessageScreen> {
                             Get.find<UserController>().currentUser!.name,
                           );
                         }
+                        // Get.find<NotificationController>().createBasicNotificaton(
+                        //   title: 'sender name place holer',
+                        //   body: _messageController.text,
+                        // );
                         _messageController.clear();
                       },
                       child: Container(
