@@ -83,7 +83,7 @@ class ConversatoinsScreen extends StatelessWidget {
                       userName: Get.find<UserController>().currentUser!.sId.toString() == controller.conversations()[index].members[0].toString()
                           ? controller.conversations()[index].names.receiverName
                           : controller.conversations()[index].names.senderName,
-                      message: "Thank you so much",
+                      message: "",
                       time: DateFormat('E kk:mm').format(controller.conversations()[index].updatedAt),
                       newMessagesNumber: 1,
                     ),

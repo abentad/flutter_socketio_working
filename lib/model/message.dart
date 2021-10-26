@@ -12,38 +12,38 @@ class Message {
   Message({
     required this.conversationId,
     required this.senderId,
+    required this.senderName,
     required this.text,
+    required this.timeSent,
     required this.id,
-    required this.createdAt,
-    required this.updatedAt,
     required this.v,
   });
 
   String conversationId;
   String senderId;
+  String senderName;
   String text;
+  DateTime timeSent;
   String id;
-  DateTime createdAt;
-  DateTime updatedAt;
   int v;
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
         conversationId: json["conversationId"],
         senderId: json["senderId"],
+        senderName: json["senderName"],
         text: json["text"],
+        timeSent: DateTime.parse(json["timeSent"]),
         id: json["_id"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
       );
 
   Map<String, dynamic> toJson() => {
         "conversationId": conversationId,
         "senderId": senderId,
+        "senderName": senderName,
         "text": text,
+        "timeSent": timeSent.toIso8601String(),
         "_id": id,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
       };
 }

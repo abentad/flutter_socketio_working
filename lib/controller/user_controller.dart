@@ -11,7 +11,7 @@ class UserController extends GetxController {
   List<User> get allUsers => _allUsers;
 
   UserController() {
-    getAllUsers();
+    // getAllUsers();
   }
 
   Future<bool> signUp(String username) async {
