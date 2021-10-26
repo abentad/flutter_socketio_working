@@ -78,7 +78,7 @@ class ConversatoinsScreen extends StatelessWidget {
                       return ConversationWidget(
                         ontap: () {
                           Get.find<ChatController>().getMessages(controller.conversations()[index].id);
-                          Navigator.push(context, CupertinoPageRoute(builder: (context) => const MessageScreen()));
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => MessageScreen(selectedConvIndex: index)));
                         },
                         size: size,
                         userName: Get.find<UserController>().currentUser!.sId.toString() == controller.conversations()[index].members[0].toString()

@@ -32,7 +32,7 @@ class ChatController extends GetxController {
       _socket.connect();
       _socket.on('connect', onConnect);
       _socket.on('receive-message', onReceiveMessage);
-      _socket.on('receive-message-from-room', (message) => print(message));
+      _socket.on('receive-message-from-room', onReceiveMessage);
     } catch (e) {
       print(e.toString());
     }
@@ -53,7 +53,7 @@ class ChatController extends GetxController {
   }
 
   void sendMessageToRoom(String message, String roomName) {
-    _socket.emit('send-message-to-room', [message, roomName]);
+    _socket.emit('send-message-to-room', {"message": message, "roomName": roomName});
   }
 
   //mongodb stuff

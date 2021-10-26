@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class MessageScreen extends StatefulWidget {
-  const MessageScreen({Key? key}) : super(key: key);
+  const MessageScreen({Key? key, required this.selectedConvIndex}) : super(key: key);
+  final int selectedConvIndex;
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
@@ -99,7 +100,8 @@ class _MessageScreenState extends State<MessageScreen> {
                       borderRadius: BorderRadius.circular(10.0),
                       onTap: () {
                         FocusScope.of(context).unfocus();
-                        if (_messageController.text != "") controller.sendMessage(_messageController.text);
+                        // if (_messageController.text != "") controller.sendMessage(_messageController.text);
+                        if (_messageController.text != "") controller.sendMessageToRoom(_messageController.text, controller.conversations()[widget.selectedConvIndex].id);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 11.0),
