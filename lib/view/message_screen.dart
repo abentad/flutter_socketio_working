@@ -50,8 +50,8 @@ class _MessageScreenState extends State<MessageScreen> {
                     itemBuilder: (context, index) => Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                       margin: Get.find<UserController>().currentUser!.sId == controller.oldMessages()[index].senderId
-                          ? const EdgeInsets.only(right: 10.0, left: 160.0)
-                          : const EdgeInsets.only(right: 160.0, left: 10.0),
+                          ? const EdgeInsets.only(right: 10.0, left: 160.0, bottom: 10.0)
+                          : const EdgeInsets.only(right: 160.0, left: 10.0, bottom: 10.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: Get.find<UserController>().currentUser!.sId == controller.oldMessages()[index].senderId
@@ -74,6 +74,10 @@ class _MessageScreenState extends State<MessageScreen> {
                         ],
                       ),
                     ),
+                    // itemCount: controller.messages.length,
+                    // itemBuilder: (context, index) => ListTile(
+                    //   title: Text(controller.messages[index]),
+                    // ),
                   ),
                 ),
                 SizedBox(height: size.height * 0.08),
@@ -100,8 +104,15 @@ class _MessageScreenState extends State<MessageScreen> {
                       borderRadius: BorderRadius.circular(10.0),
                       onTap: () {
                         FocusScope.of(context).unfocus();
-                        // if (_messageController.text != "") controller.sendMessage(_messageController.text);
-                        if (_messageController.text != "") controller.sendMessageToRoom(_messageController.text, controller.conversations()[widget.selectedConvIndex].id);
+                        if (_messageController.text != "") {
+                          controller.sendMessageToRoom(
+                            _messageController.text,
+                            controller.conversations()[widget.selectedConvIndex].id,
+                            Get.find<UserController>().currentUser!.sId,
+                            Get.find<UserController>().currentUser!.name,
+                          );
+                        }
+                        _messageController.clear();
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 11.0),

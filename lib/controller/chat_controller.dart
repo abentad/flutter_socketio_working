@@ -31,7 +31,7 @@ class ChatController extends GetxController {
       });
       _socket.connect();
       _socket.on('connect', onConnect);
-      _socket.on('receive-message', onReceiveMessage);
+      // _socket.on('receive-message', onReceiveMessage);
       _socket.on('receive-message-from-room', onReceiveMessage);
     } catch (e) {
       print(e.toString());
@@ -48,16 +48,46 @@ class ChatController extends GetxController {
     update();
   }
 
-  void sendMessage(String message) {
-    _socket.emit('send-message', message);
-  }
+  // void sendMessage(String message) {
+  //   _socket.emit('send-message', message);
+  // }
 
-  void sendMessageToRoom(String message, String roomName) {
-    _socket.emit('send-message-to-room', {"message": message, "roomName": roomName});
+  void sendMessageToRoom(String message, String convId, String senderId, String senderName) async {
+    try {
+      bool result = await createAndSaveMessage(convId: convId, senderId: senderId, senderName: senderName, text: message);
+      if (result) {
+        _socket.emit('send-message-to-room', {"message": message, "roomName": convId});
+        print('emmited message successfully');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   //mongodb stuff
   //
+
+  Future<bool> createAndSaveMessage({required String convId, required String senderId, required String senderName, required String text}) async {
+    print('save message called');
+    Dio _dio = Dio(BaseOptions(baseUrl: kbaseUrl, connectTimeout: 20000, receiveTimeout: 100000, responseType: ResponseType.json));
+    try {
+      final response = await _dio.post(
+        '/api/message',
+        data: {"conversationId": convId, "senderId": senderId, "senderName": senderName, "text": text},
+      );
+      print(response.statusCode);
+      if (response.statusCode == 201) {
+        print('worked nice');
+        _oldMessages.add(Message.fromJson(response.data));
+        update();
+        return true;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
+  }
+
   void getConversations(String userId) async {
     Dio _dio = Dio(BaseOptions(baseUrl: kbaseUrl, connectTimeout: 10000, receiveTimeout: 100000, responseType: ResponseType.json));
     try {
